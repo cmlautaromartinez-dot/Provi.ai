@@ -102,7 +102,7 @@ export default function ProviBotPage() {
   }
 
   return (
-    <div className="min-h-full bg-cream-50 flex flex-col">
+    <div className="absolute inset-0 bg-cream-50 flex flex-col">
       <header className="sticky top-0 z-30 bg-white border-b border-ink-100 px-3 py-3 flex items-center gap-2">
         <button onClick={() => router.back()} className="w-9 h-9 rounded-xl active:bg-ink-100 flex items-center justify-center">
           <ChevronLeft size={22} />

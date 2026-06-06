@@ -26,7 +26,7 @@ export default function SplashPage() {
 
         <div className="animate-slide-up">
           <h1 className="font-display font-extrabold text-4xl leading-[1.05] text-ink-900">
-            Cocinas que se<br/>
+            Locales que se<br/>
             <span className="bg-gradient-to-r from-brand-500 to-leaf-500 bg-clip-text text-transparent">
               ayudan entre sí.
             </span>
