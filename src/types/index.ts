@@ -36,7 +36,7 @@ export type Pedido = {
   producto: string;
   cantidad: number;
   total: number;
-  estado: 'pendiente' | 'aceptado' | 'en camino' | 'entregado';
+  estado: 'pendiente' | 'aceptado' | 'en camino' | 'entregado' | 'cancelado';
   fecha: string;
   proveedor?: string;
   comprador?: string;

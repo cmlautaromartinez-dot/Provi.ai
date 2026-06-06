@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useStore } from '@/lib/store';
 import { listProducts } from '@/lib/products';
@@ -13,6 +13,14 @@ import TopBar from '@/components/TopBar';
 const CATEGORIAS = ['Todos', 'Pastelería', 'Panadería', 'Viandas', 'Salado', 'Bebidas', 'Lácteos'];
 
 export default function ExplorarPage() {
+  return (
+    <Suspense fallback={<div className="min-h-full bg-cream-50" />}>
+      <ExplorarInner />
+    </Suspense>
+  );
+}
+
+function ExplorarInner() {
   const { ubicacion } = useStore();
   const search = useSearchParams();
   const catParam = search.get('cat');

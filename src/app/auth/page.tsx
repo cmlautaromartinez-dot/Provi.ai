@@ -7,6 +7,7 @@ import { getSupabase } from '@/lib/supabase';
 import { useToast } from '@/components/Toast';
 import TopBar from '@/components/TopBar';
 import Logo from '@/components/Logo';
+import { Role } from '@/types';
 import { Mail, ArrowRight, Loader2 } from 'lucide-react';
 
 type Step = 'pick' | 'email' | 'sent' | 'loading';
@@ -22,15 +23,15 @@ export default function AuthPage() {
   // Si vuelve del callback con sesión activa, avanzar
   useEffect(() => {
     if (!supabase) return;
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (data.session) {
+    supabase.auth.getSession().then(async ({ data }: any) => {
+      if (data?.session) {
         const userId = data.session.user.id;
         await ensureProfile(userId, role);
         update({ userId, authMethod: 'oauth' });
         router.push('/permisos');
       }
     });
-    const { data: sub } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange(async (event: string, session: any) => {
       if (event === 'SIGNED_IN' && session) {
         const userId = session.user.id;
         await ensureProfile(userId, role);
