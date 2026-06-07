@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/lib/store';
+import { useStore, isRealUser } from '@/lib/store';
 import { getProduct } from '@/lib/products';
 import { createOrders } from '@/lib/orders';
 import { Product } from '@/types';
@@ -41,8 +41,9 @@ export default function CheckoutPage() {
   async function pagar() {
     if (items.length === 0) return;
     setProcessing(true);
-    // Crear orders en Supabase (una por línea distinta porque cada producto puede ser de un seller distinto)
-    if (userId) {
+    // Solo guardamos en Supabase si el user está realmente logueado (UUID válido)
+    // En modo demo, simulamos el éxito para que el flow se vea completo.
+    if (isRealUser(userId)) {
       const res = await createOrders(
         items.map((i) => ({
           buyerId: userId,
@@ -58,7 +59,7 @@ export default function CheckoutPage() {
         return;
       }
     } else {
-      // Sin login real: lo dejamos pasar (modo demo)
+      // Modo demo: simulamos delay y mostramos éxito
       await new Promise((r) => setTimeout(r, 800));
     }
     setProcessing(false);

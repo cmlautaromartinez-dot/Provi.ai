@@ -3,6 +3,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Role, CartItem } from '@/types';
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Devuelve true si el userId es un UUID válido (= usuario real de Supabase Auth) */
+export function isRealUser(userId: string | null | undefined): userId is string {
+  return !!userId && UUID_RE.test(userId);
+}
+
 type Store = {
   userId: string | null;
   role: Role;
