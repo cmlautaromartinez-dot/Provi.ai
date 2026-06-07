@@ -185,14 +185,18 @@ export async function POST(req: Request) {
 
   const parsed = parseInboundMessage(payload);
   if (!parsed) {
+    console.warn('[kapso webhook] sin mensaje útil', JSON.stringify(payload).slice(0, 500));
     return NextResponse.json({ ok: true, note: 'sin mensaje útil' });
   }
 
-  // Fire-and-forget: respondemos 200 ya, procesamos en background
-  // Kapso espera respuesta en <10s, Claude puede tardar 2-5s, igual conviene async
-  processAndReply(parsed.from, parsed.text).catch((e) => {
-    console.error('[kapso webhook] background error', e);
-  });
+  // Vercel serverless mata el proceso al devolver la respuesta,
+  // así que NO podemos usar fire-and-forget. Procesamos sincrónico.
+  // Kapso da 10s, Claude tarda ~3s, está OK.
+  try {
+    await processAndReply(parsed.from, parsed.text);
+  } catch (e) {
+    console.error('[kapso webhook] error procesando', e);
+  }
 
   return NextResponse.json({ ok: true });
 }
