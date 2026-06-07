@@ -170,7 +170,7 @@ Flujo de alto nivel:
 | Nombre | Rol | Background |
 | --- | --- | --- |
 | Lautaro Martinez | CEO | Sub Director Comercial en Cheaf |
-| Leonardo Caggiari | CEO | Fundador La Casonita |
+| Leonardo Cagliero | CFO | Fundador en La Casonita y Nature and Fitness |
 | Maia Liparelli | CMO | Marketing en Gunndy's Panadería |
 | Joaquín | Dev | App de descuentos gastronómicos |
 
