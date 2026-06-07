@@ -7,6 +7,7 @@ import { getSupabase } from '@/lib/supabase';
 import WizardShell from '@/components/WizardShell';
 import Chip from '@/components/Chip';
 import RecordButton from '@/components/RecordButton';
+import PhotoButton from '@/components/PhotoButton';
 import { useToast } from '@/components/Toast';
 
 const VENDIENDO_HOY = [
@@ -156,7 +157,7 @@ export default function OnboardingVendedorPage() {
               <Chip key={v.label} label={v.label} emoji={v.emoji} selected={quiero.includes(v.label)} onClick={() => toggle(quiero, v.label, setQuiero)} accent="leaf" />
             ))}
           </div>
-          <RecordButton mode="video" label="Mostranos tu producto estrella" />
+          <PhotoButton label="Sacale fotos a tu producto estrella" />
         </>
       )}
 

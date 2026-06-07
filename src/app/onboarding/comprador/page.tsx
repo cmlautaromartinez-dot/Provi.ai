@@ -134,8 +134,8 @@ export default function OnboardingCompradorPage() {
             ))}
           </div>
           <div className="pt-2">
-            <p className="text-xs font-semibold text-ink-500 mb-2">O contanos por video / audio</p>
-            <RecordButton mode="video" label="Mostranos tu cocina" />
+            <p className="text-xs font-semibold text-ink-500 mb-2">O mostranos con fotos</p>
+            <PhotoButton label="Sacale fotos a tu cocina" />
           </div>
         </>
       )}
@@ -187,8 +187,8 @@ export default function OnboardingCompradorPage() {
             <Field label="Algo importante a saber" placeholder="Ej: solo entrada por callejón lateral" icon="📍" value={notas} onChange={setNotas} />
           </div>
           <div className="pt-2">
-            <p className="text-xs font-semibold text-ink-500 mb-2">O mostranos el espacio</p>
-            <RecordButton mode="video" label="Recorré tu local" />
+            <p className="text-xs font-semibold text-ink-500 mb-2">O mostranos con fotos</p>
+            <PhotoButton label="Sacale fotos a tu espacio" />
           </div>
         </>
       )}
