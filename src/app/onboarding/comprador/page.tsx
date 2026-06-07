@@ -7,6 +7,7 @@ import { getSupabase } from '@/lib/supabase';
 import WizardShell from '@/components/WizardShell';
 import Chip from '@/components/Chip';
 import RecordButton from '@/components/RecordButton';
+import PhotoButton from '@/components/PhotoButton';
 import { useToast } from '@/components/Toast';
 
 const HERRAMIENTAS = [
@@ -152,7 +153,7 @@ export default function OnboardingCompradorPage() {
               onClick={() => setTab('txt')}
               className={`flex-1 py-2 rounded-lg text-xs font-bold ${tab === 'txt' ? 'bg-white shadow-soft text-ink-900' : 'text-ink-500'}`}
             >
-              Grabar / escribir
+              Foto / audio / texto
             </button>
           </div>
           {tab === 'rec' ? (
@@ -163,13 +164,14 @@ export default function OnboardingCompradorPage() {
             </div>
           ) : (
             <div className="space-y-3 pt-2">
-              <RecordButton mode="audio" label="Contale a Provi qué vendés" />
+              <PhotoButton label="Sacale una foto a tu carta o vidriera" />
+              <RecordButton mode="audio" label="O grabá un audio explicando" />
               <textarea
                 value={textoLibre}
                 onChange={(e) => setTextoLibre(e.target.value)}
-                placeholder="O escribilo acá: ej. café de especialidad, medialunas, focaccia..."
+                placeholder="O escribilo: ej. café de especialidad, medialunas, focaccia..."
                 className="w-full bg-cream-100 rounded-2xl p-4 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-400"
-                rows={4}
+                rows={3}
               />
             </div>
           )}
