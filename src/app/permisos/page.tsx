@@ -14,26 +14,26 @@ const PERMS: { key: PermKey; title: string; subtitle: string; icon: any; color: 
   {
     key: 'ubicacion',
     title: 'Ubicación',
-    subtitle: 'Para encontrar proveedores cerca tuyo',
+    subtitle: 'Detectá oportunidades cerca tuyo',
     icon: MapPin,
     color: 'from-brand-400 to-brand-600',
-    reason: 'Detectamos productos a menos de 5km de tu local y calculamos tiempos de entrega.',
+    reason: 'La IA aprende qué se mueve en tu zona y te recomienda productos que potencian tu menú actual.',
   },
   {
     key: 'camara',
     title: 'Cámara',
-    subtitle: 'Grabá videos de tu local y productos',
+    subtitle: 'Para conocer mejor tu local',
     icon: Camera,
     color: 'from-leaf-400 to-leaf-600',
-    reason: 'Mostramos tu local a otros locales en tu zona.',
+    reason: 'Cuanto más sepa la IA sobre tu cocina, más podemos potenciar lo que ya tenés (equipamiento, espacio, vibra).',
   },
   {
     key: 'microfono',
     title: 'Micrófono',
-    subtitle: 'Hablale a Provi para pedir más rápido',
+    subtitle: 'Hablale a Provi como si fuera un amigo',
     icon: Mic,
     color: 'from-purple-400 to-purple-600',
-    reason: 'Provi escucha tu pedido y te recomienda al toque.',
+    reason: 'La IA entiende tu pedido en lenguaje natural y arma la mejor combinación para tu negocio.',
   },
 ];
 
@@ -200,9 +200,11 @@ export default function PermisosPage() {
             </div>
             <h1 className="font-display font-extrabold text-3xl text-ink-900 mt-8">{current.title}</h1>
             <p className="text-ink-500 text-[15px] mt-2 max-w-xs">{current.subtitle}</p>
-            <div className="mt-8 bg-cream-100 rounded-2xl p-4 text-left w-full">
-              <p className="text-xs font-bold text-ink-500 uppercase tracking-wide mb-1">¿Por qué?</p>
-              <p className="text-sm text-ink-700">{current.reason}</p>
+            <div className="mt-8 bg-gradient-to-br from-brand-50 to-leaf-50 border border-brand-100 rounded-2xl p-4 text-left w-full">
+              <p className="text-xs font-extrabold text-brand-600 uppercase tracking-wide mb-1 flex items-center gap-1">
+                <span>✨</span> Potenciá tu negocio con IA
+              </p>
+              <p className="text-sm text-ink-700 leading-relaxed">{current.reason}</p>
             </div>
             {coords && current.key === 'ubicacion' && (
               <div className="mt-3 bg-leaf-50 border border-leaf-200 rounded-2xl p-3 w-full text-left">
