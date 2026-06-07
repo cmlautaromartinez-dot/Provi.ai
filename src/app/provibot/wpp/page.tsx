@@ -6,6 +6,7 @@ import { useStore } from '@/lib/store';
 import { useToast } from '@/components/Toast';
 import { getSupabase } from '@/lib/supabase';
 import TopBar from '@/components/TopBar';
+import WhatsAppButton from '@/components/WhatsAppButton';
 import { Check, MessageCircle, Sparkles, ChevronRight, Phone, Loader2 } from 'lucide-react';
 
 export default function WppConnectPage() {
@@ -96,6 +97,10 @@ export default function WppConnectPage() {
               </button>
             </div>
 
+            <div className="mt-4">
+              <WhatsAppButton message="Hola Provi" label="Abrir WhatsApp y hablar con Provi" />
+            </div>
+
             <button onClick={() => router.back()} className="w-full mt-3 py-3 text-ink-500 font-semibold text-sm">
               Más tarde
             </button>
@@ -133,7 +138,11 @@ export default function WppConnectPage() {
               </p>
             </div>
 
-            <button onClick={() => router.push('/home')} className="mt-auto w-full bg-brand-500 text-white font-bold py-4 rounded-2xl shadow-pop flex items-center justify-center gap-2">
+            <div className="mt-6 w-full">
+              <WhatsAppButton message="Hola Provi" label="Abrir WhatsApp ahora" />
+            </div>
+
+            <button onClick={() => router.push('/home')} className="mt-3 w-full bg-cream-100 text-ink-700 font-bold py-3 rounded-2xl flex items-center justify-center gap-2">
               Volver al inicio <ChevronRight size={18} />
             </button>
           </div>

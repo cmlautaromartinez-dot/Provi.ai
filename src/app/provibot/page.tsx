@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Send, Mic, ChevronLeft, MessageCircle, Sparkles, Plus, AlertCircle, RotateCcw } from 'lucide-react';
 import { useStore } from '@/lib/store';
 import { useToast } from '@/components/Toast';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 type Msg = {
   id: string;
@@ -120,7 +121,8 @@ export default function ProviBotPage() {
         <button onClick={restart} className="w-9 h-9 rounded-xl bg-cream-100 text-ink-600 flex items-center justify-center" title="Reiniciar">
           <RotateCcw size={16} />
         </button>
-        <Link href="/provibot/wpp" className="w-9 h-9 rounded-xl bg-leaf-100 text-leaf-700 flex items-center justify-center">
+        <WhatsAppButton variant="icon" message="Hola Provi" />
+        <Link href="/provibot/wpp" className="w-9 h-9 rounded-xl bg-leaf-100 text-leaf-700 flex items-center justify-center" title="Configurar WhatsApp">
           <MessageCircle size={18} />
         </Link>
       </header>

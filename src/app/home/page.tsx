@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Product } from '@/types';
 import ProductCard from '@/components/ProductCard';
 import BottomNav from '@/components/BottomNav';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 export default function HomePage() {
   const { nombreLocal, cart, ubicacion } = useStore();
@@ -62,6 +63,10 @@ export default function HomePage() {
           </div>
           <Bot size={18} />
         </Link>
+
+        <div className="mt-2">
+          <WhatsAppButton variant="compact" message="Hola Provi" className="w-full justify-center !text-sm !py-2.5" />
+        </div>
       </header>
 
       <main className="flex-1 px-5 pt-6 pb-6 space-y-7">
