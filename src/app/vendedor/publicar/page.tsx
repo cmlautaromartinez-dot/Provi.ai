@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/lib/store';
+import { useStore, isRealUser } from '@/lib/store';
 import { createProduct } from '@/lib/products';
 import TopBar from '@/components/TopBar';
 import { useToast } from '@/components/Toast';
-import { Camera, DollarSign, Package2, Tag, FileText, Truck, Check } from 'lucide-react';
+import { Camera, DollarSign, Package2, Tag, FileText, Truck, Check, X } from 'lucide-react';
 
 const CATEGORIAS = ['Pastelería', 'Panadería', 'Viandas', 'Salado', 'Bebidas', 'Lácteos', 'Otro'];
 const TAGS = ['Sin TACC', 'Vegano', 'Sin lactosa', 'Orgánico', 'Sin azúcar', 'Apto diabéticos', 'Artesanal'];
@@ -34,6 +34,22 @@ export default function PublicarPage() {
   const [vencimiento, setVencimiento] = useState('');
   const [comoSeSirve, setComoSeSirve] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [fotos, setFotos] = useState<{ url: string; name: string }[]>([]);
+  const fotoInputRef = useRef<HTMLInputElement>(null);
+
+  function onFotosChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files || []);
+    const nuevas = files.slice(0, 5 - fotos.length).map((f) => ({
+      url: URL.createObjectURL(f),
+      name: f.name,
+    }));
+    setFotos((prev) => [...prev, ...nuevas]);
+    if (fotoInputRef.current) fotoInputRef.current.value = '';
+  }
+
+  function quitarFoto(i: number) {
+    setFotos((prev) => prev.filter((_, idx) => idx !== i));
+  }
 
   async function publicar() {
     if (!nombre.trim()) {
@@ -44,11 +60,15 @@ export default function PublicarPage() {
       toast.show('Falta el precio', 'error');
       return;
     }
-    if (!userId) {
-      toast.show('Necesitás estar logueado', 'error');
+    setSubmitting(true);
+    // En modo demo (userId no es UUID válido) simulamos el éxito sin tocar Supabase
+    if (!isRealUser(userId)) {
+      await new Promise((r) => setTimeout(r, 800));
+      setSubmitting(false);
+      toast.show('¡Producto publicado! 🚀', 'success');
+      router.push('/vendedor/productos');
       return;
     }
-    setSubmitting(true);
     const res = await createProduct({
       sellerId: userId,
       nombre: nombre.trim(),
@@ -80,13 +100,57 @@ export default function PublicarPage() {
       <TopBar title="Publicar producto" />
 
       <main className="flex-1 px-4 py-4 pb-32 space-y-4">
-        <button className="w-full bg-white rounded-3xl border-2 border-dashed border-ink-200 p-8 flex flex-col items-center gap-2 active:scale-[0.99] transition">
-          <div className="w-14 h-14 rounded-2xl bg-leaf-100 flex items-center justify-center">
-            <Camera size={26} className="text-leaf-600" />
-          </div>
-          <p className="font-bold text-sm">Subí fotos del producto</p>
-          <p className="text-xs text-ink-500">Próximamente — por ahora usamos emoji por categoría</p>
-        </button>
+        <section className="bg-white rounded-3xl border-2 border-dashed border-ink-200 p-4">
+          {fotos.length === 0 ? (
+            <button
+              onClick={() => fotoInputRef.current?.click()}
+              className="w-full flex flex-col items-center gap-2 py-4 active:scale-[0.99] transition"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-leaf-100 flex items-center justify-center">
+                <Camera size={26} className="text-leaf-600" />
+              </div>
+              <p className="font-bold text-sm">Subí fotos del producto</p>
+              <p className="text-xs text-ink-500">Hasta 5 fotos — cuanto más mejor</p>
+            </button>
+          ) : (
+            <>
+              <div className="grid grid-cols-3 gap-2">
+                {fotos.map((f, i) => (
+                  <div key={i} className="relative aspect-square rounded-xl overflow-hidden group">
+                    <img src={f.url} alt="" className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => quitarFoto(i)}
+                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-ink-900/70 text-white flex items-center justify-center"
+                    >
+                      <X size={12} strokeWidth={3} />
+                    </button>
+                  </div>
+                ))}
+                {fotos.length < 5 && (
+                  <button
+                    onClick={() => fotoInputRef.current?.click()}
+                    className="aspect-square rounded-xl bg-leaf-50 border-2 border-dashed border-leaf-300 flex flex-col items-center justify-center text-leaf-700 active:scale-95"
+                  >
+                    <Camera size={22} />
+                    <span className="text-[10px] font-bold mt-1">Sumar</span>
+                  </button>
+                )}
+              </div>
+              <p className="text-[11px] text-ink-500 text-center mt-2">
+                {fotos.length}/5 fotos
+              </p>
+            </>
+          )}
+          <input
+            ref={fotoInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            capture="environment"
+            onChange={onFotosChange}
+            className="hidden"
+          />
+        </section>
 
         <Section icon={Tag} title="Nombre">
           <input value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Ej: Torta Red Velvet artesanal" className="w-full bg-cream-100 rounded-xl px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-leaf-400" />
