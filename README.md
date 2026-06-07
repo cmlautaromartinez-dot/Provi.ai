@@ -170,7 +170,7 @@ Flujo de alto nivel:
 | Nombre | Rol | Background |
 | --- | --- | --- |
 | Lautaro Martinez | CEO | Sub Director Comercial en Cheaf |
-| Leonardo Caggiari | CTO | Sistemas en Uber Eats |
+| Leonardo Caggiari | CEO | Fundador La Casonita |
 | Maia Liparelli | CMO | Marketing en Gunndy's Panadería |
 | Joaquín | Dev | App de descuentos gastronómicos |
 
