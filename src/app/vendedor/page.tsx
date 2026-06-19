@@ -46,10 +46,10 @@ export default function VendedorDashboard() {
             <p className="text-xs text-white/80">Buenas! 👋</p>
             <p className="font-display font-extrabold text-lg">{nombreLocal || 'Mi Cocina'}</p>
           </div>
-          <button className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center relative">
+          <Link href="/vendedor/pedidos" className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center relative">
             <Bell size={18} />
             {pendientes.length > 0 && <span className="absolute -top-1 -right-1 w-5 h-5 bg-brand-500 text-[10px] font-extrabold rounded-full flex items-center justify-center">{pendientes.length}</span>}
-          </button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-3 gap-2">

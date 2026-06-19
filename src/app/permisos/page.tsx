@@ -32,7 +32,7 @@ const PERMS: { key: PermKey; title: string; subtitle: string; icon: any; color: 
     title: 'Micrófono',
     subtitle: 'Hablale a Provi como si fuera un amigo',
     icon: Mic,
-    color: 'from-purple-400 to-purple-600',
+    color: 'from-brand-400 to-brand-600',
     reason: 'La IA entiende tu pedido en lenguaje natural y arma la mejor combinación para tu negocio.',
   },
 ];

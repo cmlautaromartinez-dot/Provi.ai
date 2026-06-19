@@ -5,9 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 :root {
-  --brand: #ff6b35;
-  --brand-dark: #ed4a14;
-  --leaf: #06a77d;
+  --brand:      #0B8DB0;
+  --brand-dark: #0B6E8F;
+  --leaf:       #06a77d;
 }
 
 html, body {
@@ -23,6 +23,7 @@ html, body {
 
 button { -webkit-tap-highlight-color: transparent; }
 
+/* ── Animations ─────────────────────────────────────────── */
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -36,15 +37,15 @@ button { -webkit-tap-highlight-color: transparent; }
 .animate-slide-up { animation: slide-up 0.4s ease both; }
 
 @keyframes pop {
-  0% { transform: scale(0.6); opacity: 0; }
-  60% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
 }
 .animate-pop { animation: pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.7; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0%   { transform: scale(0.95); opacity: 0.7; }
+  100% { transform: scale(1.6);  opacity: 0; }
 }
 .pulse-ring::before,
 .pulse-ring::after {
@@ -60,17 +61,37 @@ button { -webkit-tap-highlight-color: transparent; }
 
 @keyframes wave {
   0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
+  50%       { transform: scaleY(1); }
 }
 .wave-bar { animation: wave 0.9s ease-in-out infinite; transform-origin: center; }
 
 @keyframes typing {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-4px); opacity: 1; }
+  30%            { transform: translateY(-4px); opacity: 1; }
 }
 .typing-dot { animation: typing 1.2s ease-in-out infinite; }
 
+@keyframes counter-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-counter { animation: counter-up 0.5s ease both; }
+
+/* ── Utilities ───────────────────────────────────────────── */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
 .font-display { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+
+/* kaso-style glass card */
+.glass-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Professional divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+}

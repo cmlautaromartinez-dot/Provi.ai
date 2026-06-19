@@ -8,17 +8,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Primary teal — kaso.ai professional palette
         brand: {
-          50:  '#fff4ee',
-          100: '#ffe6d5',
-          200: '#ffc8aa',
-          300: '#ffa274',
-          400: '#ff7a3c',
-          500: '#ff6b35',
-          600: '#ed4a14',
-          700: '#c4360f',
-          800: '#9b2c12',
-          900: '#7d2812',
+          50:  '#EBF7FA',
+          100: '#C7EAF4',
+          200: '#8FD4E9',
+          300: '#51BDDD',
+          400: '#1EA6D0',
+          500: '#0B8DB0',
+          600: '#0B6E8F',
+          700: '#0A5574',
+          800: '#083E57',
+          900: '#062B3C',
         },
         leaf: {
           50:  '#ecfdf5',
@@ -33,9 +34,9 @@ module.exports = {
           900: '#064e3b',
         },
         cream: {
-          50:  '#fffbf5',
-          100: '#fdf4e7',
-          200: '#fae6c8',
+          50:  '#f8fafc',
+          100: '#f1f5f9',
+          200: '#e2e8f0',
         },
         ink: {
           900: '#0f172a',
@@ -55,7 +56,12 @@ module.exports = {
       },
       boxShadow: {
         soft: '0 4px 20px rgba(15, 23, 42, 0.06)',
-        pop: '0 10px 30px rgba(255, 107, 53, 0.25)',
+        pop:  '0 10px 30px rgba(11, 141, 176, 0.28)',
+        card: '0 1px 4px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.04)',
+      },
+      borderRadius: {
+        '3xl': '1.5rem',
+        '4xl': '2rem',
       },
     },
   },
