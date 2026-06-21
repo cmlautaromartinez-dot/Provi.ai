@@ -3,36 +3,40 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore, isRealUser } from '@/lib/store';
-import { getProduct } from '@/lib/products';
+import { getProductsByIds } from '@/lib/products';
 import { createOrders } from '@/lib/orders';
 import { Product } from '@/types';
 import TopBar from '@/components/TopBar';
 import { useToast } from '@/components/Toast';
-import { CreditCard, Wallet, Banknote, MapPin, Calendar, Check, Loader2 } from 'lucide-react';
+import { CreditCard, Wallet, Banknote, MapPin, Calendar, Check } from 'lucide-react';
 
 type Line = Product & { cantidad: number };
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, clearCart, nombreLocal, userId, ubicacion } = useStore();
+  const { cart, addToCart, clearCart, nombreLocal, userId, ubicacion } = useStore();
   const toast = useToast();
   const [pago, setPago] = useState<'tarjeta' | 'mp' | 'efectivo'>('mp');
-  const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
   const [items, setItems] = useState<Line[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
     (async () => {
-      const results = await Promise.all(
-        cart.map(async (c) => {
-          const p = await getProduct(c.productId, { lat: ubicacion.lat, lng: ubicacion.lng });
-          return p ? { ...p, cantidad: c.cantidad } : null;
-        })
+      // 1 query para todos los ítems (antes: N queries)
+      const ids = cart.map(c => c.productId);
+      const productos = await getProductsByIds(ids, { lat: ubicacion.lat, lng: ubicacion.lng });
+      if (!mounted) return;
+      const byId = Object.fromEntries(productos.map(p => [p.id, p]));
+      setItems(
+        cart
+          .map(c => byId[c.productId] ? { ...byId[c.productId], cantidad: c.cantidad } : null)
+          .filter(Boolean) as Line[]
       );
-      setItems(results.filter(Boolean) as Line[]);
       setLoading(false);
     })();
+    return () => { mounted = false; };
   }, [cart, ubicacion.lat, ubicacion.lng]);
 
   const subtotal = items.reduce((s, i) => s + i.precio * i.cantidad, 0);
@@ -40,37 +44,49 @@ export default function CheckoutPage() {
 
   async function pagar() {
     if (items.length === 0) return;
-    setProcessing(true);
-    // Solo guardamos en Supabase si el user está realmente logueado (UUID válido)
-    // En modo demo, simulamos el éxito para que el flow se vea completo.
-    if (isRealUser(userId)) {
-      const res = await createOrders(
-        items.map((i) => ({
-          buyerId: userId,
-          productId: i.id,
-          sellerId: i.proveedorId,
-          cantidad: i.cantidad,
-          precioUnitario: i.precio,
-        }))
-      );
-      if (!res.ok) {
-        toast.show('No pudimos guardar el pedido: ' + res.error, 'error');
-        setProcessing(false);
-        return;
-      }
-    } else {
-      // Modo demo: simulamos delay y mostramos éxito
-      await new Promise((r) => setTimeout(r, 800));
-    }
-    setProcessing(false);
-    setSuccess(true);
+
+    // Snapshot para rollback — capturar antes de clearCart
+    const snapshot = cart.map(c => ({ ...c }));
+
+    // Optimistic: éxito inmediato, sin spinner
     clearCart();
+    setSuccess(true);
+
+    // Confirmar en background solo si hay usuario real
+    if (isRealUser(userId)) {
+      const res = await createOrders(items.map(i => ({
+        buyerId: userId,
+        productId: i.id,
+        sellerId: i.proveedorId,
+        cantidad: i.cantidad,
+        precioUnitario: i.precio,
+      })));
+      if (!res.ok) {
+        // Rollback: restaurar carrito y volver al formulario
+        snapshot.forEach(c => addToCart(c.productId, c.cantidad));
+        setSuccess(false);
+        toast.show('No pudimos confirmar el pedido. Intentá de nuevo.', 'error');
+      }
+    }
+    // Modo demo: success ya se muestra, no hay API que esperar
   }
 
   if (loading) {
     return (
-      <div className="min-h-full bg-white flex items-center justify-center">
-        <Loader2 size={28} className="text-brand-500 animate-spin" />
+      <div className="min-h-full bg-cream-50 flex flex-col">
+        <TopBar title="Pagar pedido" />
+        <div className="px-4 py-4 space-y-4 animate-pulse">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl p-4 shadow-soft space-y-3">
+              <div className="h-3 bg-cream-200 rounded-full w-1/3" />
+              <div className="h-4 bg-cream-200 rounded-full w-2/3" />
+              <div className="h-3 bg-cream-200 rounded-full w-1/2" />
+            </div>
+          ))}
+        </div>
+        <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-ink-100 p-4">
+          <div className="w-full h-14 bg-cream-200 rounded-2xl animate-pulse" />
+        </footer>
       </div>
     );
   }
@@ -154,17 +170,9 @@ export default function CheckoutPage() {
       <footer className="fixed bottom-0 left-0 right-0 md:absolute bg-white border-t border-ink-100 p-4">
         <button
           onClick={pagar}
-          disabled={processing}
-          className="w-full bg-brand-500 active:scale-[0.98] transition rounded-2xl py-4 font-bold text-white shadow-pop flex items-center justify-center gap-2 disabled:opacity-70"
+          className="w-full bg-brand-500 active:scale-[0.97] transition rounded-2xl py-4 font-bold text-white shadow-pop"
         >
-          {processing ? (
-            <>
-              <span className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-              Procesando pago...
-            </>
-          ) : (
-            <>Confirmar y pagar ${total.toLocaleString('es-AR')}</>
-          )}
+          Confirmar y pagar ${total.toLocaleString('es-AR')}
         </button>
       </footer>
     </div>

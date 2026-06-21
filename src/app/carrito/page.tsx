@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { getProduct } from '@/lib/products';
+import { getProductsByIds } from '@/lib/products';
 import { Product } from '@/types';
 import TopBar from '@/components/TopBar';
 import { useToast } from '@/components/Toast';
-import { Plus, Minus, Trash2, ShoppingBag, Truck, Loader2 } from 'lucide-react';
+import { Plus, Minus, Trash2, ShoppingBag, Truck } from 'lucide-react';
 
 type CartLine = Product & { cantidad: number };
 
@@ -22,14 +22,16 @@ export default function CarritoPage() {
     let mounted = true;
     (async () => {
       setLoading(true);
-      const results = await Promise.all(
-        cart.map(async (c) => {
-          const p = await getProduct(c.productId, { lat: ubicacion.lat, lng: ubicacion.lng });
-          return p ? { ...p, cantidad: c.cantidad } : null;
-        })
-      );
+      // 1 query para todos los productos del carrito (antes: N queries)
+      const ids = cart.map(c => c.productId);
+      const productos = await getProductsByIds(ids, { lat: ubicacion.lat, lng: ubicacion.lng });
       if (!mounted) return;
-      setItems(results.filter(Boolean) as CartLine[]);
+      const byId = Object.fromEntries(productos.map(p => [p.id, p]));
+      setItems(
+        cart
+          .map(c => byId[c.productId] ? { ...byId[c.productId], cantidad: c.cantidad } : null)
+          .filter(Boolean) as CartLine[]
+      );
       setLoading(false);
     })();
     return () => { mounted = false; };
@@ -50,10 +52,25 @@ export default function CarritoPage() {
 
   if (loading) {
     return (
-      <div className="min-h-full flex flex-col bg-white">
+      <div className="min-h-full flex flex-col bg-cream-50">
         <TopBar title="Mi carrito" />
-        <div className="flex-1 flex items-center justify-center">
-          <Loader2 size={28} className="text-brand-500 animate-spin" />
+        <div className="px-4 py-4 space-y-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl p-3 flex gap-3 animate-pulse">
+              <div className="w-20 h-20 rounded-xl bg-cream-200 flex-shrink-0" />
+              <div className="flex-1 space-y-2 pt-1">
+                <div className="h-3.5 bg-cream-200 rounded-full w-3/4" />
+                <div className="h-3 bg-cream-200 rounded-full w-1/2" />
+                <div className="h-4 bg-cream-200 rounded-full w-1/3 mt-2" />
+              </div>
+            </div>
+          ))}
+          <div className="bg-white rounded-2xl p-4 mt-4 space-y-3 animate-pulse">
+            <div className="h-3 bg-cream-200 rounded-full w-1/4" />
+            <div className="h-3 bg-cream-200 rounded-full w-full" />
+            <div className="h-px bg-cream-200" />
+            <div className="h-5 bg-cream-200 rounded-full w-1/3" />
+          </div>
         </div>
       </div>
     );

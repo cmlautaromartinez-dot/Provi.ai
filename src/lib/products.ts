@@ -1,6 +1,5 @@
-'use client';
-
 import { getSupabase } from '@/lib/supabase';
+import { getSupabaseServer } from '@/lib/supabase-server';
 import { Product } from '@/types';
 
 const PRODUCT_SELECT = `
@@ -79,6 +78,58 @@ export async function getProduct(
     .maybeSingle();
   if (error || !data) return null;
   return toProduct(data, buyerCoords);
+}
+
+// Trae varios productos en UNA sola query (en vez de N queries paralelas)
+export async function getProductsByIds(
+  ids: string[],
+  buyerCoords?: { lat: number | null; lng: number | null }
+): Promise<Product[]> {
+  if (ids.length === 0) return [];
+  const supabase = getSupabase();
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from('products')
+    .select(PRODUCT_SELECT)
+    .in('id', ids);
+  if (error) {
+    console.error('[getProductsByIds]', error);
+    return [];
+  }
+  return (data || []).map((r: any) => toProduct(r, buyerCoords));
+}
+
+// Versión server-side del listado — para RSC/Suspense streaming
+export async function listProductsServer(opts?: {
+  categoria?: string;
+  buyerCoords?: { lat: number | null; lng: number | null };
+}): Promise<Product[]> {
+  try {
+    const supabase = getSupabaseServer();
+    let q = supabase.from('products').select(PRODUCT_SELECT).eq('activo', true).gt('stock', 0);
+    if (opts?.categoria && opts.categoria !== 'Todos') q = q.eq('categoria', opts.categoria);
+    const { data, error } = await q;
+    if (error) return [];
+    return (data || []).map((r: any) => toProduct(r, opts?.buyerCoords));
+  } catch {
+    return [];
+  }
+}
+
+// Versión server-side para RSC/ISR — no accede a localStorage ni al DOM
+export async function getProductServer(id: string): Promise<Product | null> {
+  try {
+    const supabase = getSupabaseServer();
+    const { data, error } = await supabase
+      .from('products')
+      .select(PRODUCT_SELECT)
+      .eq('id', id)
+      .maybeSingle();
+    if (error || !data) return null;
+    return toProduct(data);
+  } catch {
+    return null;
+  }
 }
 
 export async function listProductsBySeller(sellerId: string): Promise<Product[]> {

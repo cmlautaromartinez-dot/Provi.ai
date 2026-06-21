@@ -8,7 +8,7 @@ import { RECOMENDACIONES_IA } from '@/lib/mock';
 import BottomNav from '@/components/BottomNav';
 import Link from 'next/link';
 import { useToast } from '@/components/Toast';
-import { Bell, TrendingUp, Package, DollarSign, Star, Sparkles, ChevronRight, Loader2 } from 'lucide-react';
+import { Bell, TrendingUp, Package, DollarSign, Star, Sparkles, ChevronRight } from 'lucide-react';
 
 export default function VendedorDashboard() {
   const { nombreLocal, userId } = useStore();
@@ -72,8 +72,21 @@ export default function VendedorDashboard() {
         </Link>
 
         {loading ? (
-          <div className="flex justify-center py-8">
-            <Loader2 size={24} className="text-leaf-500 animate-spin" />
+          <div className="space-y-2.5 animate-pulse">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl p-4 border-l-4 border-cream-200 flex items-center gap-3">
+                <div className="w-14 h-14 rounded-2xl bg-cream-200 flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-3.5 bg-cream-200 rounded-full w-2/3" />
+                  <div className="h-3 bg-cream-200 rounded-full w-1/2" />
+                  <div className="h-3 bg-cream-200 rounded-full w-1/3" />
+                </div>
+                <div className="space-y-2">
+                  <div className="h-7 w-16 bg-cream-200 rounded-lg" />
+                  <div className="h-7 w-16 bg-cream-200 rounded-lg" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : pendientes.length > 0 ? (
           <section>

@@ -2,7 +2,7 @@ export default function Logo({ size = 40 }: { size?: number }) {
   return (
     <div className="flex items-center gap-2">
       <div
-        className="rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white font-display font-extrabold shadow-pop"
+        className="rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-display font-extrabold shadow-pop"
         style={{ width: size, height: size, fontSize: size * 0.5 }}
       >
         p

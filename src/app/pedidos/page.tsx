@@ -6,7 +6,7 @@ import { listOrdersForBuyer } from '@/lib/orders';
 import { Pedido } from '@/types';
 import BottomNav from '@/components/BottomNav';
 import TopBar from '@/components/TopBar';
-import { ChevronRight, Package, Loader2 } from 'lucide-react';
+import { ChevronRight, Package } from 'lucide-react';
 
 const COLORS: Record<string, string> = {
   pendiente: 'bg-amber-100 text-amber-700',
@@ -37,8 +37,20 @@ export default function PedidosPage() {
       <TopBar title="Mis pedidos" back={false} />
       <main className="flex-1 px-4 py-4 space-y-3">
         {loading ? (
-          <div className="flex justify-center py-12">
-            <Loader2 size={24} className="text-brand-500 animate-spin" />
+          <div className="space-y-3 animate-pulse">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl p-4 flex items-center gap-3">
+                <div className="w-14 h-14 rounded-2xl bg-cream-200 flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-3.5 bg-cream-200 rounded-full w-2/3" />
+                  <div className="h-3 bg-cream-200 rounded-full w-1/2" />
+                  <div className="h-5 bg-cream-200 rounded-full w-1/4 mt-1" />
+                </div>
+                <div className="space-y-2 text-right">
+                  <div className="h-4 bg-cream-200 rounded-full w-16" />
+                </div>
+              </div>
+            ))}
           </div>
         ) : pedidos.length === 0 ? (
           <div className="text-center py-16">
