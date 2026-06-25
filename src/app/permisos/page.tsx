@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { getSupabase } from '@/lib/supabase';
-import { useToast } from '@/components/Toast';
+import { getSupabase } from '@/lib/supabase/client';
+import { useToast } from '@/components/ui/Toast';
 import { MapPin, Camera, Mic, Check, ChevronRight, Loader2 } from 'lucide-react';
-import TopBar from '@/components/TopBar';
+import TopBar from '@/components/layout/TopBar';
 
 type PermKey = 'ubicacion' | 'camara' | 'microfono';
 

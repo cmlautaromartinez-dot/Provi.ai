@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useStore } from '@/lib/store';
-import { listOrdersForBuyer } from '@/lib/orders';
+import { listOrdersForBuyer } from '@/lib/services/orders';
 import { Pedido } from '@/types';
-import BottomNav from '@/components/BottomNav';
-import TopBar from '@/components/TopBar';
+import BottomNav from '@/components/layout/BottomNav';
+import TopBar from '@/components/layout/TopBar';
 import { ChevronRight, Package } from 'lucide-react';
 
 const COLORS: Record<string, string> = {

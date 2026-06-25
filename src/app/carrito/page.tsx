@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { getProductsByIds } from '@/lib/products';
+import { getProductsByIds } from '@/lib/services/products';
 import { Product } from '@/types';
-import TopBar from '@/components/TopBar';
-import { useToast } from '@/components/Toast';
+import TopBar from '@/components/layout/TopBar';
+import { useToast } from '@/components/ui/Toast';
 import { Plus, Minus, Trash2, ShoppingBag, Truck } from 'lucide-react';
 
 type CartLine = Product & { cantidad: number };

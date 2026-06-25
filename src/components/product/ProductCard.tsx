@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Star, MapPin, Plus } from 'lucide-react';
 import { Product } from '@/types';
 import { useStore } from '@/lib/store';
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 
 export default function ProductCard({ product, compact = false }: { product: Product; compact?: boolean }) {
   const { addToCart } = useStore();

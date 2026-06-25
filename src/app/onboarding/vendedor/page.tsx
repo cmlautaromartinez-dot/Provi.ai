@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { getSupabase } from '@/lib/supabase';
-import WizardShell from '@/components/WizardShell';
-import Chip from '@/components/Chip';
+import { getSupabase } from '@/lib/supabase/client';
+import WizardShell from '@/components/layout/WizardShell';
+import Chip from '@/components/ui/Chip';
 import RecordButton from '@/components/RecordButton';
 import PhotoButton from '@/components/PhotoButton';
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 
 const VENDIENDO_HOY = [
   { label: 'Café y bebidas', emoji: '☕' },

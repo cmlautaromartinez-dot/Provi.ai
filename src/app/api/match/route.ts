@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { runMatch } from '@/lib/matching-core';
+import { runMatch } from '@/lib/services/matching-core';
 
 export const runtime = 'nodejs';
 

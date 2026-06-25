@@ -4,12 +4,12 @@
 export const revalidate = 60; // ISR: CDN cachea 60s, luego revalida en background
 
 import { Suspense, cache } from 'react';
-import { listProductsServer } from '@/lib/products';
+import { listProductsServer } from '@/lib/services/products';
 import { Sparkles, TrendingUp, Zap } from 'lucide-react';
 import Link from 'next/link';
-import ProductCard from '@/components/ProductCard';
-import BottomNav from '@/components/BottomNav';
-import HomeHeader from './HomeHeader';
+import ProductCard from '@/components/product/ProductCard';
+import BottomNav from '@/components/layout/BottomNav';
+import HomeHeader from '@/components/home/HomeHeader';
 
 // CABA centro — coords por defecto para cálculo de distancia server-side.
 // El usuario urbano de CABA (target principal) ve distancias correctas.

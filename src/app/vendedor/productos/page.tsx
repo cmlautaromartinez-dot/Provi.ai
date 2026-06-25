@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useStore } from '@/lib/store';
-import { listProductsBySeller } from '@/lib/products';
+import { listProductsBySeller } from '@/lib/services/products';
 import { Product } from '@/types';
-import BottomNav from '@/components/BottomNav';
-import TopBar from '@/components/TopBar';
+import BottomNav from '@/components/layout/BottomNav';
+import TopBar from '@/components/layout/TopBar';
 import { Plus, Eye, Edit3, Loader2 } from 'lucide-react';
 
 export default function MisProductosPage() {

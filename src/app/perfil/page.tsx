@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import BottomNav from '@/components/BottomNav';
-import TopBar from '@/components/TopBar';
+import BottomNav from '@/components/layout/BottomNav';
+import TopBar from '@/components/layout/TopBar';
 import { ChevronRight, MessageCircle, MapPin, Bell, Star, HelpCircle, Settings, LogOut, Sparkles, Store } from 'lucide-react';
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 
 export default function PerfilPage() {
   const router = useRouter();

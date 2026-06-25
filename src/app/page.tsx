@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { getWaitlistCount } from '@/lib/waitlist';
+import { getWaitlistCount } from '@/lib/services/waitlist';
 import Logo from '@/components/Logo';
-import WaitlistModal from '@/components/WaitlistModal';
+import WaitlistModal from '@/components/ui/WaitlistModal';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -259,6 +259,16 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ── Avales institucionales ─────────────────── */}
+      <section className="px-6 py-10 flex flex-col items-center gap-4">
+        <p className="text-xs font-semibold text-ink-400 uppercase tracking-widest">Avalado por</p>
+        <img
+          src="/avales-udesa.png"
+          alt="Centro de Entrepreneurship UdeSA · Escuela de Negocios Universidad de San Andrés"
+          className="h-10 md:h-12 w-auto object-contain opacity-80"
+        />
       </section>
 
       {/* ── Footer mínimo ──────────────────────────── */}

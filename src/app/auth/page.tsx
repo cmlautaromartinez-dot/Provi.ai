@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { getSupabase } from '@/lib/supabase';
-import { useToast } from '@/components/Toast';
-import TopBar from '@/components/TopBar';
+import { getSupabase } from '@/lib/supabase/client';
+import { useToast } from '@/components/ui/Toast';
+import TopBar from '@/components/layout/TopBar';
 import Logo from '@/components/Logo';
 import { Role } from '@/types';
 import { Mail, ArrowRight, Loader2 } from 'lucide-react';

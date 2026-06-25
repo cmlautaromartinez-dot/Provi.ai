@@ -1,6 +1,6 @@
 'use client';
 
-import { getSupabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase/client';
 import { Pedido } from '@/types';
 
 const ORDER_SELECT = `

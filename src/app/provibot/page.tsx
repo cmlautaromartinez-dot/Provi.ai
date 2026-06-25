@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Send, Mic, ChevronLeft, MessageCircle, Sparkles, Plus, AlertCircle, RotateCcw } from 'lucide-react';
 import { useStore } from '@/lib/store';
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 type Msg = {

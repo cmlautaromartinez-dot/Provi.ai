@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import BottomNav from '@/components/BottomNav';
-import TopBar from '@/components/TopBar';
-import { useToast } from '@/components/Toast';
+import BottomNav from '@/components/layout/BottomNav';
+import TopBar from '@/components/layout/TopBar';
+import { useToast } from '@/components/ui/Toast';
 import { ChevronRight, MapPin, Bell, Star, HelpCircle, Settings, LogOut, ShoppingBag, BarChart3, BadgeCheck } from 'lucide-react';
 
 export default function VendedorPerfilPage() {

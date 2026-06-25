@@ -15,9 +15,9 @@
 
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { sendText, verifyWebhookSignature, parseInboundMessage } from '@/lib/kapso';
-import { runMatch } from '@/lib/matching-core';
-import { getSupabaseServer } from '@/lib/supabase-server';
+import { sendText, verifyWebhookSignature, parseInboundMessage } from '@/lib/services/kapso';
+import { runMatch } from '@/lib/services/matching-core';
+import { getSupabaseServer } from '@/lib/supabase/server';
 
 export const runtime = 'nodejs';
 

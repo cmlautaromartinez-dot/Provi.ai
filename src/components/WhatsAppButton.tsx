@@ -1,6 +1,6 @@
 'use client';
 
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 
 type Props = {
   /** Texto pre-cargado al abrir WhatsApp (default: "Hola") */

@@ -3,9 +3,9 @@
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore, isRealUser } from '@/lib/store';
-import { createProduct } from '@/lib/products';
-import TopBar from '@/components/TopBar';
-import { useToast } from '@/components/Toast';
+import { createProduct } from '@/lib/services/products';
+import TopBar from '@/components/layout/TopBar';
+import { useToast } from '@/components/ui/Toast';
 import { Camera, DollarSign, Package2, Tag, FileText, Truck, Check, X } from 'lucide-react';
 
 const CATEGORIAS = ['Pastelería', 'Panadería', 'Viandas', 'Salado', 'Bebidas', 'Lácteos', 'Otro'];

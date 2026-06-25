@@ -5,7 +5,7 @@
  */
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { runMatch } from '@/lib/matching-core';
+import { runMatch } from '@/lib/services/matching-core';
 
 export const runtime = 'nodejs';
 

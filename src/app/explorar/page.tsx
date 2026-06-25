@@ -3,12 +3,12 @@
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { listProducts } from '@/lib/products';
+import { listProducts } from '@/lib/services/products';
 import { Product } from '@/types';
 import { Search, SlidersHorizontal, MapPin, Star, Sparkles } from 'lucide-react';
-import ProductCard from '@/components/ProductCard';
-import BottomNav from '@/components/BottomNav';
-import TopBar from '@/components/TopBar';
+import ProductCard from '@/components/product/ProductCard';
+import BottomNav from '@/components/layout/BottomNav';
+import TopBar from '@/components/layout/TopBar';
 
 const CATEGORIAS = ['Todos', 'Pastelería', 'Panadería', 'Viandas', 'Salado', 'Bebidas', 'Lácteos'];
 

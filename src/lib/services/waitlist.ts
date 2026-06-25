@@ -1,25 +1,28 @@
-import { getSupabase } from './supabase';
+import { getSupabase } from '@/lib/supabase/client';
 
 export async function joinWaitlist(data: {
   nombre: string;
-  email: string;
-  whatsapp?: string;
-  nombreLocal?: string;
+  email?: string;
+  whatsapp: string;
+  nombreLocal: string;
+  tipoNegocio: string;
+  zonadireccion: string;
   role: 'comprador' | 'vendedor';
 }): Promise<{ ok: boolean; error?: string; position?: number }> {
   const supabase = getSupabase();
-  if (!supabase) return { ok: true }; // demo sin Supabase — mostramos éxito igual
+  if (!supabase) return { ok: true };
 
   const { error } = await supabase.from('waitlist').insert({
     nombre: data.nombre,
-    email: data.email,
-    whatsapp: data.whatsapp || null,
-    nombre_local: data.nombreLocal || null,
+    email: data.email?.trim() || null,
+    whatsapp: data.whatsapp,
+    nombre_local: data.nombreLocal,
+    tipo_negocio: data.tipoNegocio,
+    zona_direccion: data.zonadireccion,
     role: data.role,
   });
 
   if (error) {
-    if (error.code === '23505') return { ok: false, error: 'Este email ya está anotado.' };
     return { ok: false, error: 'Algo salió mal. Intentá de nuevo.' };
   }
 

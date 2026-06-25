@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useStore } from '@/lib/store';
-import { listOrdersForSeller, updateOrderStatus, sellerStats } from '@/lib/orders';
+import { listOrdersForSeller, updateOrderStatus, sellerStats } from '@/lib/services/orders';
 import { Pedido } from '@/types';
 import { RECOMENDACIONES_IA } from '@/lib/mock';
-import BottomNav from '@/components/BottomNav';
+import BottomNav from '@/components/layout/BottomNav';
 import Link from 'next/link';
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 import { Bell, TrendingUp, Package, DollarSign, Star, Sparkles, ChevronRight } from 'lucide-react';
 
 export default function VendedorDashboard() {

@@ -1,5 +1,5 @@
-import { getSupabase } from '@/lib/supabase';
-import { getSupabaseServer } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase/client';
+import { getSupabaseServer } from '@/lib/supabase/server';
 import { Product } from '@/types';
 
 const PRODUCT_SELECT = `

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getSupabase } from '@/lib/supabase';
+import { getSupabase } from '@/lib/supabase/client';
 import { useStore } from '@/lib/store';
 import { Loader2 } from 'lucide-react';
 

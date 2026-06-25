@@ -12,8 +12,8 @@
 
 import { NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { runMatch } from '@/lib/matching-core';
-import { getSupabaseServer } from '@/lib/supabase-server';
+import { runMatch } from '@/lib/services/matching-core';
+import { getSupabaseServer } from '@/lib/supabase/server';
 
 export const runtime = 'nodejs';
 

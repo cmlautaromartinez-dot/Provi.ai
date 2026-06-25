@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { useToast } from '@/components/Toast';
-import { getSupabase } from '@/lib/supabase';
-import TopBar from '@/components/TopBar';
+import { useToast } from '@/components/ui/Toast';
+import { getSupabase } from '@/lib/supabase/client';
+import TopBar from '@/components/layout/TopBar';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { Check, MessageCircle, Sparkles, ChevronRight, Phone, Loader2 } from 'lucide-react';
 

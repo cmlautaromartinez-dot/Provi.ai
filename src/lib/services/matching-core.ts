@@ -3,7 +3,7 @@
  * Trae catálogo de Supabase, distancia Haversine y llama a Claude para rankear.
  */
 import Anthropic from '@anthropic-ai/sdk';
-import { getSupabaseServer } from '@/lib/supabase-server';
+import { getSupabaseServer } from '@/lib/supabase/server';
 
 export type MatchInput = {
   buyerId?: string | null;

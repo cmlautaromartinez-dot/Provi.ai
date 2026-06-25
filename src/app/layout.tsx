@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import PhoneFrame from '@/components/PhoneFrame';
-import { ToastProvider } from '@/components/Toast';
+import PhoneFrame from '@/components/layout/PhoneFrame';
+import { ToastProvider } from '@/components/ui/Toast';
 
 export const metadata: Metadata = {
   title: 'provi AI — Tu socio de abastecimiento gastronómico',

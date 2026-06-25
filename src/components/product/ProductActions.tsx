@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '@/lib/store';
-import { useToast } from '@/components/Toast';
+import { useToast } from '@/components/ui/Toast';
 import { Heart, Share2, Plus, Minus, MessageCircle } from 'lucide-react';
 import { Product } from '@/types';
 

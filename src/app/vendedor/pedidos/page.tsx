@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useStore } from '@/lib/store';
-import { listOrdersForSeller, updateOrderStatus } from '@/lib/orders';
+import { listOrdersForSeller, updateOrderStatus } from '@/lib/services/orders';
 import { Pedido } from '@/types';
-import BottomNav from '@/components/BottomNav';
-import TopBar from '@/components/TopBar';
-import { useToast } from '@/components/Toast';
+import BottomNav from '@/components/layout/BottomNav';
+import TopBar from '@/components/layout/TopBar';
+import { useToast } from '@/components/ui/Toast';
 import { Check, X, MessageCircle, Loader2 } from 'lucide-react';
 
 const COLORS: Record<string, string> = {

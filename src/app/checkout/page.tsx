@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore, isRealUser } from '@/lib/store';
-import { getProductsByIds } from '@/lib/products';
-import { createOrders } from '@/lib/orders';
+import { getProductsByIds } from '@/lib/services/products';
+import { createOrders } from '@/lib/services/orders';
 import { Product } from '@/types';
-import TopBar from '@/components/TopBar';
-import { useToast } from '@/components/Toast';
+import TopBar from '@/components/layout/TopBar';
+import { useToast } from '@/components/ui/Toast';
 import { CreditCard, Wallet, Banknote, MapPin, Calendar, Check } from 'lucide-react';
 
 type Line = Product & { cantidad: number };

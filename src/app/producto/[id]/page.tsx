@@ -1,9 +1,9 @@
 // RSC — datos fetched en el servidor, caché ISR de 60 segundos
 // JS al cliente: solo el client island ProductActions.tsx
-import { getProductServer } from '@/lib/products';
+import { getProductServer } from '@/lib/services/products';
 import { Star, MapPin, Truck, ShieldCheck, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { FavShareButtons, ContactButton, BuyActions } from './ProductActions';
+import { FavShareButtons, ContactButton, BuyActions } from '@/components/product/ProductActions';
 
 export const revalidate = 60; // ISR: Next.js revalida cada 60s desde CDN
 
