@@ -252,11 +252,16 @@ function SuccessState({ position, onDemo, onClose, ringClass, dotClass, barClass
   position: number | null; onDemo: () => void; onClose: () => void;
   ringClass: string; dotClass: string; barClass: string; btnClass: string;
 }) {
+  const [copied, setCopied] = useState(false);
+
   function share() {
     if (navigator.share) {
       navigator.share({ title: 'provi.ai', text: '¡Me anoté en provi.ai! Abastecimiento gastronómico con IA. Anotate vos también.', url: window.location.href });
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
     }
   }
 
@@ -299,7 +304,7 @@ function SuccessState({ position, onDemo, onClose, ringClass, dotClass, barClass
           onClick={share}
           className="w-full border border-cream-300 text-ink-600 font-semibold py-3.5 rounded-2xl flex items-center justify-center gap-2 hover:bg-cream-50 transition"
         >
-          <Share2 size={15} /> Invitá a un colega
+          <Share2 size={15} /> {copied ? '¡Link copiado!' : 'Invitá a un colega'}
         </button>
       </div>
     </div>
