@@ -96,7 +96,13 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
   }
 
   const isComprador = role === 'comprador';
-  const accent = isComprador ? 'brand' : 'leaf';
+  const headerClass = isComprador ? 'bg-brand-600' : 'bg-leaf-600';
+  const btnClass = isComprador
+    ? 'bg-brand-600 hover:bg-brand-700'
+    : 'bg-leaf-600 hover:bg-leaf-700';
+  const ringClass = isComprador ? 'bg-brand-100' : 'bg-leaf-100';
+  const dotClass = isComprador ? 'bg-brand-500' : 'bg-leaf-500';
+  const barClass = isComprador ? 'bg-brand-500' : 'bg-leaf-500';
 
   return (
     <div
@@ -107,7 +113,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
       <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden max-h-[95dvh] flex flex-col">
 
         {/* Header */}
-        <div className={`bg-${accent}-600 px-6 pt-6 pb-5 text-white relative flex-shrink-0`}>
+        <div className={`${headerClass} px-6 pt-6 pb-5 text-white relative flex-shrink-0`}>
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition"
@@ -137,7 +143,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
         {/* Body */}
         <div className="px-6 py-5 overflow-y-auto">
           {position !== null ? (
-            <SuccessState position={position} onDemo={onDemo} onClose={onClose} accent={accent} />
+            <SuccessState position={position} onDemo={onDemo} onClose={onClose} ringClass={ringClass} dotClass={dotClass} barClass={barClass} btnClass={btnClass} />
           ) : (
             <form onSubmit={submit} noValidate className="space-y-3.5">
               <Field
@@ -220,7 +226,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
               <button
                 type="submit"
                 disabled={submitting}
-                className={`w-full bg-${accent}-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-${accent}-700 active:scale-[0.98] transition disabled:opacity-50 mt-1`}
+                className={`w-full ${btnClass} text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 active:scale-[0.98] transition disabled:opacity-50 mt-1`}
               >
                 {submitting ? (
                   <span className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
@@ -240,8 +246,9 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
   );
 }
 
-function SuccessState({ position, onDemo, onClose, accent }: {
-  position: number; onDemo: () => void; onClose: () => void; accent: string;
+function SuccessState({ position, onDemo, onClose, ringClass, dotClass, barClass, btnClass }: {
+  position: number; onDemo: () => void; onClose: () => void;
+  ringClass: string; dotClass: string; barClass: string; btnClass: string;
 }) {
   function share() {
     if (navigator.share) {
@@ -253,8 +260,8 @@ function SuccessState({ position, onDemo, onClose, accent }: {
 
   return (
     <div className="text-center py-4">
-      <div className={`w-20 h-20 rounded-full bg-${accent}-100 flex items-center justify-center mx-auto`}>
-        <div className={`w-14 h-14 rounded-full bg-${accent}-500 flex items-center justify-center`}>
+      <div className={`w-20 h-20 rounded-full ${ringClass} flex items-center justify-center mx-auto`}>
+        <div className={`w-14 h-14 rounded-full ${dotClass} flex items-center justify-center`}>
           <Check size={30} className="text-white" strokeWidth={3} />
         </div>
       </div>
@@ -269,7 +276,7 @@ function SuccessState({ position, onDemo, onClose, accent }: {
       </div>
       <div className="w-full h-2.5 bg-cream-200 rounded-full overflow-hidden">
         <div
-          className={`h-full bg-${accent}-500 rounded-full transition-all duration-700`}
+          className={`h-full ${barClass} rounded-full transition-all duration-700`}
           style={{ width: `${Math.min((position / 100) * 100, 100)}%` }}
         />
       </div>
@@ -278,7 +285,7 @@ function SuccessState({ position, onDemo, onClose, accent }: {
       <div className="flex flex-col gap-2">
         <button
           onClick={onDemo}
-          className={`w-full bg-${accent}-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-${accent}-700 active:scale-[0.98] transition`}
+          className={`w-full ${btnClass} text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 active:scale-[0.98] transition`}
         >
           Ver la demo <ArrowRight size={16} />
         </button>
