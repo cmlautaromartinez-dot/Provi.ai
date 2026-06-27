@@ -39,6 +39,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [submitted, setSubmitted] = useState(false);
   const [position, setPosition] = useState<number | null>(null);
 
   useEffect(() => {
@@ -84,8 +85,9 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
       role,
     });
     setSubmitting(false);
-    if (!res.ok) { setSubmitError(res.error || 'Error al anotarte.'); return; }
+    if (!res.ok) { setSubmitError(res.error || 'Algo salió mal. Intentá de nuevo.'); return; }
     setPosition(res.position ?? null);
+    setSubmitted(true);
   }
 
   function set(field: string) {
@@ -121,7 +123,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
             <X size={16} />
           </button>
           <div className="text-2xl mb-1.5">{isComprador ? '🛒' : '🍳'}</div>
-          {position === null ? (
+          {!submitted ? (
             <>
               <p className="font-display font-extrabold text-xl leading-tight">
                 {isComprador ? 'Abastecer tu local, más fácil' : 'Vendé a más locales'}
@@ -142,7 +144,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
 
         {/* Body */}
         <div className="px-6 py-5 overflow-y-auto">
-          {position !== null ? (
+          {submitted ? (
             <SuccessState position={position} onDemo={onDemo} onClose={onClose} ringClass={ringClass} dotClass={dotClass} barClass={barClass} btnClass={btnClass} />
           ) : (
             <form onSubmit={submit} noValidate className="space-y-3.5">
@@ -247,7 +249,7 @@ export default function WaitlistModal({ role, onClose, onDemo }: Props) {
 }
 
 function SuccessState({ position, onDemo, onClose, ringClass, dotClass, barClass, btnClass }: {
-  position: number; onDemo: () => void; onClose: () => void;
+  position: number | null; onDemo: () => void; onClose: () => void;
   ringClass: string; dotClass: string; barClass: string; btnClass: string;
 }) {
   function share() {
@@ -271,16 +273,20 @@ function SuccessState({ position, onDemo, onClose, ringClass, dotClass, barClass
         Te escribimos por WhatsApp cuando lancemos en tu zona.
       </p>
 
-      <div className="flex items-center justify-center gap-2 text-xs text-ink-500 mb-1">
-        <span>{position} de 100 anotados</span>
-      </div>
-      <div className="w-full h-2.5 bg-cream-200 rounded-full overflow-hidden">
-        <div
-          className={`h-full ${barClass} rounded-full transition-all duration-700`}
-          style={{ width: `${Math.min((position / 100) * 100, 100)}%` }}
-        />
-      </div>
-      <p className="text-xs text-ink-400 mt-1.5 mb-6">{Math.max(0, 100 - position)} lugares restantes para el lanzamiento</p>
+      {position !== null && (
+        <>
+          <div className="flex items-center justify-center gap-2 text-xs text-ink-500 mb-1">
+            <span>{position} de 100 anotados</span>
+          </div>
+          <div className="w-full h-2.5 bg-cream-200 rounded-full overflow-hidden">
+            <div
+              className={`h-full ${barClass} rounded-full transition-all duration-700`}
+              style={{ width: `${Math.min((position / 100) * 100, 100)}%` }}
+            />
+          </div>
+          <p className="text-xs text-ink-400 mt-1.5 mb-6">{Math.max(0, 100 - position)} lugares restantes para el lanzamiento</p>
+        </>
+      )}
 
       <div className="flex flex-col gap-2">
         <button
