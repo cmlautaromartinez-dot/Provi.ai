@@ -55,12 +55,15 @@ export default function LandingPage() {
       {/* ── Hero ───────────────────────────────────── */}
       <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 md:py-24">
         <h1 className="font-display font-extrabold text-5xl md:text-[4.5rem] lg:text-[5.5rem] text-ink-900 leading-[1.0] max-w-4xl">
-          Abastecimiento<br className="hidden md:block" /> Gastronómico con IA
+          Conectando Cocinas
         </h1>
 
-        <p className="text-ink-500 text-[17px] md:text-lg mt-6 max-w-lg leading-relaxed">
-          Confiado por 200+ locales en CABA. Primera venta B2B confirmada.<br className="hidden md:block"/>
-          Más rápido, más simple, más inteligente.
+        <p className="text-ink-500 text-[17px] md:text-lg mt-5 max-w-lg leading-relaxed italic">
+          Completá tus datos, sumate a la lista de espera.
+        </p>
+
+        <p className="text-ink-400 text-[15px] md:text-base mt-3 max-w-lg leading-relaxed">
+          Creemos el futuro del abastecimiento gastronómico.
         </p>
 
         <button
