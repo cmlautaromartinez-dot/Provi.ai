@@ -273,7 +273,7 @@ export default function LandingPage() {
 
       {/* ── Footer mínimo ──────────────────────────── */}
       <footer className="text-center py-4 text-[12px] text-ink-400">
-        provi.AI · 5% comisión por transacción · sin costo fijo · Hackathon Y-Hat 2026
+        provi.ai · 5% comisión por transacción · sin costo fijo · Hackathon Y-Hat 2026
       </footer>
 
       {/* ── Modal waitlist ─────────────────────────── */}
